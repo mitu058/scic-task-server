@@ -3,7 +3,7 @@
 A web-based task management system that allows users to create, manage, and categorize their tasks efficiently.
 
 ## 🔗 Live Demo
-[SCIC Task Management System](https://scic-assignment-9dcaa.web.app)
+[https://scic-task-743f3.web.app/](https://scic-task-743f3.web.app/)
 
 ## 📜 Features
 - User authentication
@@ -18,7 +18,7 @@ A web-based task management system that allows users to create, manage, and cate
 - **React Router** - Navigation
 - **Axios** - HTTP requests
 
-## 🔧 Installation & Setup
+<!-- ## 🔧 Installation & Setup
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/scic-frontend.git
+   git clone https://github.com/yourusername/scic-frontend.git -->
