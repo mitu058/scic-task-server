@@ -92,17 +92,6 @@ app.get("/tasks/:email", async (req, res) => {
   }
 });
 
-// ✅ Get a single task by ID
-app.get("/tasks/:id", async (req, res) => {
-  try {
-    const id = new ObjectId(req.params.id);
-    const result = await taskCollection.findOne({ _id: id });
-    if (!result) return res.status(404).send({ message: "Task not found" });
-    res.send(result);
-  } catch (error) {
-    res.status(500).send({ message: "Error fetching task", error });
-  }
-});
 
 // ✅ Delete a task by ID
 app.delete("/tasks/:id", async (req, res) => {
@@ -116,8 +105,19 @@ app.delete("/tasks/:id", async (req, res) => {
   }
 });
 
+app.get("/task/:id", async (req, res) => {
+  try {
+    const id = new ObjectId(req.params.id);
+    const result = await taskCollection.findOne({ _id: id });
+    if (!result) return res.status(404).send({ message: "Task not found" });
+    res.send(result);
+  } catch (error) {
+    res.status(500).send({ message: "Error fetching task", error });
+  }
+});
+
 // ✅ Update task (PATCH)
-app.patch("/tasks/:id", async (req, res) => {
+app.put("/update-task/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { title, description, category } = req.body;
@@ -138,26 +138,26 @@ app.patch("/tasks/:id", async (req, res) => {
 });
 
 // ✅ Update only category (PUT)
-app.put("/tasks/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { category } = req.body;
-    const result = await taskCollection.updateOne(
-      { _id: new ObjectId(id) },
-      { $set: { category } }
-    );
+// app.put("/update-task/:id", async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { category } = req.body;
+//     const result = await taskCollection.updateOne(
+//       { _id: new ObjectId(id) },
+//       { $set: { category } }
+//     );
 
-    if (result.matchedCount === 0) {
-      return res.status(404).json({ message: "Task not found" });
-    }
+//     if (result.matchedCount === 0) {
+//       return res.status(404).json({ message: "Task not found" });
+//     }
 
-    const updatedTask = await taskCollection.findOne({ _id: new ObjectId(id) });
-    res.status(200).json(updatedTask);
-  } catch (error) {
-    console.error("Error updating task category:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
+//     const updatedTask = await taskCollection.findOne({ _id: new ObjectId(id) });
+//     res.status(200).json(updatedTask);
+//   } catch (error) {
+//     console.error("Error updating task category:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
 
 // ✅ Root Route
 app.get("/", (req, res) => {
